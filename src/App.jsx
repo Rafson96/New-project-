@@ -9,7 +9,6 @@ function App() {
 	const [active, setisActive] = useState(false)
 	const [indexTask, setIndexTask] = useState()
 
-	console.log(data);
 	function handleToggleForm() {
 		setFormOpen(prevState => !prevState)
 		setisActive(false)
@@ -25,8 +24,7 @@ function App() {
 	}
 	function removeTask(index) {
 		setData(prevData => {
-		
-			const newData = prevData.filter((s, i) => i !== 0)
+			const newData = prevData.filter((s, i) => i !== index)
 			return newData
 		})
 	}
@@ -34,14 +32,14 @@ function App() {
 	let content
 	if (isFormOpen && !active) {
 		content = <Taskform onSave={saveData} onFormToggle={handleToggleForm} />
-	} else if (active) {
+	} else if (active && data.length) {
 		content = <Task onSaveData={setData} index={indexTask} onRemoveTask={removeTask} data={data}></Task>
-	} else if (!isFormOpen && !active) {
+	} else if ((!isFormOpen && !active) || !data.length) {
 		content = <NewProjectCreator onFormToggle={handleToggleForm} />
 	}
 
 	return (
-		<div className='flex max-w-3xl mx-auto h-3/4 mt-10 '>
+		<div className='flex max-w-3xl mx-auto h-3/4 mt-10  '>
 			<SideBar onHandleActive={handleActiveClick} data={data} onFormToggle={handleToggleForm} />
 			<>{content}</>
 		</div>

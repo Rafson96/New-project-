@@ -17,6 +17,8 @@ export default function Task({ data, index, onRemoveTask, onSaveData }) {
 		setTaskInput('')
 	}
 
+	//add new task to array
+	//When we remove project from data, we have here prob
 	function handleRemoveTask(taskIndex) {
 		onSaveData(prevState => {
 			const newData = [...prevState]
